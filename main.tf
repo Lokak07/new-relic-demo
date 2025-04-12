@@ -27,3 +27,27 @@ module "vpc" {
 
   tags = var.tags
 }
+
+# eks cluster module associated with the VPC module
+# This module creates an EKS cluster and node groups within the VPC created above
+
+module "eks" {
+  source  = "terraform-aws-modules/eks/aws"
+  version = "~> 20.31"
+
+  cluster_name    = var.cluster_name
+  cluster_version = var.cluster_version
+
+  # Optional
+  cluster_endpoint_public_access = var.cluster_endpoint_public_access
+
+  # Optional: Adds the current caller identity as an administrator via cluster access entry
+  enable_cluster_creator_admin_permissions = var.enable_cluster_creator_admin_permissions
+
+  cluster_compute_config = var.cluster_compute_config
+
+  vpc_id     = module.vpc.vpc_id
+  subnet_ids = module.vpc.private_subnets
+
+  tags = module.vpc.tags
+}

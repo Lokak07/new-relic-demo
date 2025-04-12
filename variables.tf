@@ -89,3 +89,43 @@ variable "tags" {
   description = "Tags to apply to all resources"
   type        = map(string)
 }
+
+#variables for eks module
+variable "cluster_name" {
+  description = "Name of the EKS cluster"
+  type        = string
+}
+
+variable "cluster_version" {
+  description = "EKS cluster version"
+  type        = string
+}
+
+variable "cluster_endpoint_public_access" {
+  description = "Enable public access to the EKS cluster endpoint"
+  type        = bool
+  default     = true
+  
+}
+
+variable "enable_cluster_creator_admin_permissions" {
+  description = "Enable admin permissions for the cluster creator"
+  type        = bool
+  default     = true  
+}
+
+variable "cluster_compute_config" {
+  description = "Compute configuration for the EKS cluster"
+  type        = list(object({
+    name          = string
+    instance_type = string
+    desired_size  = number
+    min_size      = number
+    max_size      = number
+    volume_size   = number
+    key_name      = var.key_name
+    tags          = map(string)
+  }))
+}
+
+
