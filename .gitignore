@@ -4,6 +4,9 @@
 # .tfstate files
 *.tfstate
 *.tfstate.*
+my_key
+my_key.pub
+
 
 # Crash log files
 crash.log

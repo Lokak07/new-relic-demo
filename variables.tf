@@ -114,19 +114,19 @@ variable "enable_cluster_creator_admin_permissions" {
   default     = true
 }
 
-variable "cluster_compute_config" {
-  description = "Compute configuration for the EKS cluster"
-  type = list(object({
-    name          = string
-    instance_type = string
-    desired_size  = number
-    min_size      = number
-    max_size      = number
-    volume_size   = number
-    key_name      = string
-    tags          = map(string)
-  }))
-}
+  # variable "cluster_compute_config" {
+  #   description = "Compute configuration for the EKS cluster"
+  #   type = list(object({
+  #     name          = string
+  #     instance_type = string
+  #     desired_size  = number
+  #     min_size      = number
+  #     max_size      = number
+  #     volume_size   = number
+  #     key_name      = string
+  #     tags          = map(string)
+  #   }))
+  # }
 
 # key pair information for associating with the EC2 instances in the VPC
 

@@ -27,3 +27,8 @@ output "default_security_group_id" {
   description = "ID of the default security group created in the VPC"
   value       = module.vpc.default_security_group_id
 }
+
+output "tags" {
+  description = "Tags applied to the VPC and its resources"
+  value       = var.tags
+}

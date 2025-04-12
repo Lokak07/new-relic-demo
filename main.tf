@@ -43,11 +43,13 @@ module "eks" {
 
   # Optional: Adds the current caller identity as an administrator via cluster access entry
   enable_cluster_creator_admin_permissions = var.enable_cluster_creator_admin_permissions
-  cluster_compute_config                   = var.cluster_compute_config
+ # cluster_compute_config                   = var.cluster_compute_config
   vpc_id                                   = module.vpc.vpc_id
   subnet_ids                               = module.vpc.private_subnets
   tags                                     = var.tags
 }
+
+
 
 # Create a key pair for SSH access to the EC2 instances in the VPC
 resource "aws_key_pair" "deployer" {
