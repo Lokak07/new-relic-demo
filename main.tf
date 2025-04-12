@@ -17,13 +17,13 @@ module "vpc" {
   enable_dns_support   = var.enable_dns_support
   enable_vpn_gateway   = var.enable_vpn_gateway
 
-  manage_default_security_group = var.manage_default_security_group
+  manage_default_security_group  = var.manage_default_security_group
   default_security_group_ingress = var.default_security_group_ingress
   default_security_group_egress  = var.default_security_group_egress
 
-  enable_flow_log                         = var.enable_flow_log
-  create_flow_log_cloudwatch_iam_role     = var.create_flow_log_cloudwatch_iam_role
-  create_flow_log_cloudwatch_log_group    = var.create_flow_log_cloudwatch_log_group
+  enable_flow_log                      = var.enable_flow_log
+  create_flow_log_cloudwatch_iam_role  = var.create_flow_log_cloudwatch_iam_role
+  create_flow_log_cloudwatch_log_group = var.create_flow_log_cloudwatch_log_group
 
   tags = var.tags
 }
@@ -43,11 +43,14 @@ module "eks" {
 
   # Optional: Adds the current caller identity as an administrator via cluster access entry
   enable_cluster_creator_admin_permissions = var.enable_cluster_creator_admin_permissions
+  cluster_compute_config                   = var.cluster_compute_config
+  vpc_id                                   = module.vpc.vpc_id
+  subnet_ids                               = module.vpc.private_subnets
+  tags                                     = var.tags
+}
 
-  cluster_compute_config = var.cluster_compute_config
-
-  vpc_id     = module.vpc.vpc_id
-  subnet_ids = module.vpc.private_subnets
-
-  tags = module.vpc.tags
+# Create a key pair for SSH access to the EC2 instances in the VPC
+resource "aws_key_pair" "deployer" {
+  key_name   = var.key_name
+  public_key = var.public_key
 }

@@ -105,27 +105,40 @@ variable "cluster_endpoint_public_access" {
   description = "Enable public access to the EKS cluster endpoint"
   type        = bool
   default     = true
-  
+
 }
 
 variable "enable_cluster_creator_admin_permissions" {
   description = "Enable admin permissions for the cluster creator"
   type        = bool
-  default     = true  
+  default     = true
 }
 
 variable "cluster_compute_config" {
   description = "Compute configuration for the EKS cluster"
-  type        = list(object({
+  type = list(object({
     name          = string
     instance_type = string
     desired_size  = number
     min_size      = number
     max_size      = number
     volume_size   = number
-    key_name      = var.key_name
+    key_name      = string
     tags          = map(string)
   }))
+}
+
+# key pair information for associating with the EC2 instances in the VPC
+
+variable "key_name" {
+  description = "The name of the SSH key pair"
+  type        = string
+  default     = "deployer-key"
+}
+
+variable "public_key" {
+  description = "The public SSH key to be used"
+  type        = string
 }
 
 
